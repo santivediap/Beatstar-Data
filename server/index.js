@@ -4,6 +4,10 @@ require('dotenv').config()
 const app = express();
 app.use(express.json({ extended: false }));
 
+// Connect Postgres DB
+const postgresDB = require("./utils/postgresql")
+postgresDB.connectSQL()
+
 app.get("/", async (req, res) => {
     res.status(200).json({
         msg: "Test"
