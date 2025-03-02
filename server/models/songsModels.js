@@ -11,7 +11,14 @@ const getSongByName = async (songName) => {
     return query
 }
 
+const updateSong = async (songData) => {
+    const { title, genre, difficulty, duration, stages, image, searchedTitle } = songData
+    const query = await Songs.update({ title, genre, difficulty, duration, stages, image }, { where: { title: searchedTitle } })
+    return query
+}
+
 module.exports = {
     createSong,
     getSongByName,
+    updateSong,
 }

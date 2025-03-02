@@ -56,7 +56,29 @@ const getSongByName = async (req, res) => {
     }
 }
 
+/*
+    PUT http://localhost:3000/api/songs
+    Update song by name in DB
+*/
+const updateSong = async (req, res) => {
+    try {
+        const { title, genre, difficulty, duration, stages, image, searchedTitle } = req.body
+
+        const query = songsModels.updateSong({ title, genre, difficulty, duration, stages, image, searchedTitle })
+        res.status(200).json({
+            code: 200,
+            query: "Update successfull"
+        })
+    } catch (error) {
+        res.status(400).json({
+            code: 400,
+            error
+        })
+    }
+}
+
 module.exports = {
     createSong,
     getSongByName,
+    updateSong,
 }
