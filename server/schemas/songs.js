@@ -4,9 +4,9 @@ const { DataTypes } = require('sequelize');
 const Songs = db.define("Songs", {
     song_id: {
         field: 'song_id',
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
+        type: DataTypes.UUID,
         primaryKey: true,
+        defaultValue: DataTypes.UUIDV4
     },
     title: {
         field: 'title',

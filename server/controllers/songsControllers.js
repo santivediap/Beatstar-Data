@@ -7,20 +7,8 @@ const songsModels = require("../models/songsModels")
 const createSong = async (req, res) => {
     try {
         const { title, genre, difficulty, duration, stages, image } = req.body
-        const stagesFixed = []
 
-        // Refactor stages names
-        for(let i = 0; i < stages.length; i++) {
-            if(i == 0) {
-                stagesFixed.push({ stageName: "Intro Stage", stageValue: stages[i] })
-            } else if(i == stages.length - 1) {
-                stagesFixed.push({ stageName: "Final Stage", stageValue: stages[i] })
-            } else {
-                stagesFixed.push({ stageName: `Stage ${ i + 1 }`, stageValue: stages[i] })
-            }
-        }
-
-        const query = await songsModels.createSong({ title, genre, difficulty, duration, stages: stagesFixed, image })
+        const query = await songsModels.createSong({ title, genre, difficulty, duration, stages, image })
         
         res.status(200).json({
             code: 200,
@@ -44,6 +32,22 @@ const getSongByTitle = async (req, res) => {
         const { title } = req.params
 
         const query = await songsModels.getSongByTitle(title)
+
+        const queryStages = query.stages
+        const stagesFixed = []
+
+        // Refactor stages names
+        for(let i = 0; i < queryStages.length; i++) {
+            if(i == 0) {
+                stagesFixed.push({ stageName: "Intro Stage", stageValue: queryStages[i] })
+            } else if(i == queryStages.length - 1) {
+                stagesFixed.push({ stageName: "Final Stage", stageValue: queryStages[i] })
+            } else {
+                stagesFixed.push({ stageName: `Stage ${ i + 1 }`, stageValue: queryStages[i] })
+            }
+        }
+
+        query.stages = stagesFixed
         res.status(200).json({
             code: 200,
             query
@@ -63,7 +67,7 @@ const getSongByTitle = async (req, res) => {
 const getSuggestedSongs = async (req, res) => {
     try {
         const { searchedTitle } = req.params
-        
+
         const query = await songsModels.getSuggestedSongs(searchedTitle)
         res.status(200).json({
             code: 200,

@@ -31,7 +31,7 @@ const getSuggestedSongs = async (search) => {
         }
     }
     
-    const query = await Songs.findAll({ where: { title: { [Op.regexp]: regex } } })
+    const query = await Songs.findAll({ where: { title: { [Op.regexp]: regex } }, limit: 20, attributes: ["title"] })
     return query
 }
 
