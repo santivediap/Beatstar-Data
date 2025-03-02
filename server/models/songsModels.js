@@ -6,8 +6,8 @@ const createSong = async (songData) => {
     return query
 }
 
-const getSongByName = async (songName) => {
-    const query = await Songs.findOne({ where: { title: songName } })
+const getSongByTitle = async (title) => {
+    const query = await Songs.findOne({ where: { title: title } })
     return query
 }
 
@@ -17,8 +17,14 @@ const updateSong = async (songData) => {
     return query
 }
 
+const deleteSong = async (title) => {
+    const query = await Songs.destroy({ where: { title } })
+    return query
+}
+
 module.exports = {
     createSong,
-    getSongByName,
+    getSongByTitle,
     updateSong,
+    deleteSong,
 }
