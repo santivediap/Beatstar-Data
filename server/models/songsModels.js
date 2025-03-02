@@ -6,6 +6,12 @@ const createSong = async (songData) => {
     return query
 }
 
+const getSongByName = async (songName) => {
+    const query = await Songs.findOne({ where: { title: songName } })
+    return query
+}
+
 module.exports = {
     createSong,
+    getSongByName,
 }
