@@ -8,6 +8,11 @@ app.use(express.json({ extended: false }));
 const postgresDB = require("./utils/postgresql")
 postgresDB.connectSQL()
 
+// Routers
+const songsApiRouter = require("./routes/songsRoutes")
+
+app.use("/api/songs", songsApiRouter)
+
 app.get("/", async (req, res) => {
     res.status(200).json({
         msg: "Test"
