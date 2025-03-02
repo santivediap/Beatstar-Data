@@ -57,6 +57,27 @@ const getSongByTitle = async (req, res) => {
 }
 
 /*
+    GET http://localhost:3000/api/songs/suggestions/:searchedTitle
+    Get songs list by matching title from DB
+*/
+const getSuggestedSongs = async (req, res) => {
+    try {
+        const { searchedTitle } = req.params
+        
+        const query = await songsModels.getSuggestedSongs(searchedTitle)
+        res.status(200).json({
+            code: 200,
+            query
+        })
+    } catch (error) {
+        res.status(400).json({
+            code: 400,
+            error
+        })
+    }
+}
+
+/*
     PUT http://localhost:3000/api/songs
     Update song by title in DB
 */
@@ -101,6 +122,7 @@ const deleteSong = async (req, res) => {
 module.exports = {
     createSong,
     getSongByTitle,
+    getSuggestedSongs,
     updateSong,
     deleteSong,
 }
