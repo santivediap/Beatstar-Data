@@ -1,0 +1,88 @@
+@use "../utils/variables";
+
+.home-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+
+    & > h1 {
+        text-shadow: variables.$normal-shadow;
+        margin: 0;
+        font-size: 2.5rem;
+    }
+
+    & > p {
+        text-shadow: variables.$normal-shadow;
+        margin: 0;
+        font-size: 1.5rem;
+    }
+}
+
+.home-data {
+    background-image: url("./assets/background-ellipse-mobile.svg");
+    background-position-x: -25vw;
+    background-position-y: -5vw;
+    padding-top: 120px;
+    padding-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & > h1 {
+        margin: 0;
+        font-size: 2.5rem;
+    }
+
+    & > p {
+        font-size: 1.5rem;
+        margin: 0;
+        width: 90%;
+        margin-bottom: 25px;
+    }
+
+    & > ul {
+        list-style-type: none;
+        position: relative;
+
+        & > li {
+            font-size: 1.5rem;
+            text-align: left;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        & > li::before {
+            content: url("./assets/list-bullet.svg");
+            position: absolute;
+            left: -50px;
+            width: 5px;
+        }
+    }
+}
+
+.dev-info {
+    background-image: url("./assets/myinfo-background.svg");
+    padding: 15px;
+
+    & > p {
+        margin: 0;
+        font-size: 1.5rem;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+        text-shadow: variables.$normal-shadow;
+
+        & > a {
+            color: white;
+        }
+    }
+
+    & > img {
+        width: 122px;
+        margin-top: 10px;
+        border-radius: 10px;
+        box-shadow: variables.$normal-shadow;
+    }
+}
