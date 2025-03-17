@@ -1,0 +1,16 @@
+@use "./views/App.scss";
+@use "./components/Main.scss";
+@use "./components/Header.scss";
+@use "./components/Home.scss";
+@use "./components/Footer.scss";
+@import "https://fonts.googleapis.com/css?family=Afacad:300,400,600,700";
+
+@font-face { font-family: AceSans; src: url('./fonts/AceSans.otf'); }
+
+* {
+    font-family: Afacad, sans-serif;
+}
+
+h1 {
+    font-family: AceSans, sans-serif;
+}
