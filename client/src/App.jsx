@@ -1,13 +1,27 @@
-import { useState } from 'react'
-import './App.css'
+import { useState, useContext } from 'react'
+import Header from "./components/Header"
+import Main from "./components/Main"
+import Footer from "./components/Footer"
+import { BrowserRouter } from 'react-router-dom';
+import { LoadingContext } from "./context/loadingContext"
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [loading, setLoading] = useState(false)
+
+  const loadingData = {
+    loading,
+    setLoading
+  }
 
   return (
-    <>
-      <p>Test</p>
-    </>
+    <BrowserRouter future={{ v7_relativeSplatPath: true, }}>
+      <Header />
+      <LoadingContext.Provider value={ loadingData } >
+        <Main />
+      </LoadingContext.Provider>
+      <Footer />
+    </BrowserRouter>
   )
 }
 
