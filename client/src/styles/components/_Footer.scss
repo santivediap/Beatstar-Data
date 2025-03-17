@@ -1,0 +1,34 @@
+footer {
+    background-color: black;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    & > a {
+        width: 31px;
+        height: 31px;
+    }
+}
+
+#social-instagram {
+    background-image: url("/assets/instagram.svg");
+    background-position: center;
+}
+
+#social-twitter {
+    background-image: url("/assets/twitter.svg");
+    background-position: center;
+}
+
+#social-youtube {
+    background-image: url("/assets/youtube.svg");
+    background-position: center;
+}
+
+#social-facebook {
+    background-image: url("/assets/facebook.svg");
+    background-position: center;
+}
