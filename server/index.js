@@ -4,14 +4,10 @@ require('dotenv').config()
 const app = express();
 app.use(express.json({ extended: false }));
 
-// Connect Postgres DB
-const postgresDB = require("./utils/postgresql")
-postgresDB.connectSQL()
-
 // Routers
-const songsApiRouter = require("./routes/songsRoutes")
+const genresApiRouter = require("./routes/genresRoutes")
 
-app.use("/api/songs", songsApiRouter)
+app.use("/api/genres", genresApiRouter)
 
 app.get("/", async (req, res) => {
     res.status(200).json({
