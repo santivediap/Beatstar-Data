@@ -6,8 +6,10 @@ app.use(express.json({ extended: false }));
 
 // Routers
 const genresApiRouter = require("./routes/genresRoutes")
+const artistsApiRouter = require("./routes/artistsRoutes")
 
 app.use("/api/genres", genresApiRouter)
+app.use("/api/artists", artistsApiRouter)
 
 app.get("/", async (req, res) => {
     res.status(200).json({
