@@ -8,14 +8,14 @@ CREATE TABLE genre (
 -- Create artist table
 CREATE TABLE artist (
     id_artist SERIAL NOT NULL,
-    name VARCHAR(30) NOT NULL UNIQUE,
+    name VARCHAR(50) NOT NULL UNIQUE,
     PRIMARY KEY(id_artist)
 )
 
 -- Create song table
 CREATE TABLE song (
     id_song SERIAL NOT NULL,
-    song_title VARCHAR(30) NOT NULL UNIQUE,
+    song_title VARCHAR(50) NOT NULL,
     difficulty VARCHAR(20) NOT NULL,
     stages VARCHAR(20)[] NOT NULL,
     duration VARCHAR(10) NOT NULL,
