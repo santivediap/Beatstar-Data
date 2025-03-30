@@ -1,77 +1,82 @@
-const songsModels = require("../models/songsModels")
+const songsModels = require('../models/songsModels');
+
+/*
+    GET http://localhost:3000/api/songs?page=1
+    Get all songs from DB by page
+*/
+const getAllSongs = async (req, res) => {
+    const { page } = req.query
+    try {
+        if(page && !isNaN(page) && parseInt(page) > 0) {
+            const songs = await songsModels.getAllSongs(page)
+            res.status(200).json({
+                code: 200,
+                page: parseInt(page),
+                next_page: songs.next_page,
+                songs: songs.songs
+            })
+        } else {
+            const songs = await songsModels.getAllSongs(1)
+            res.status(200).json({
+                code: 200,
+                page: 1,
+                next_page: songs.next_page,
+                songs: songs.songs
+            })
+        }
+    } catch (error) { 
+        console.log(error);
+                  
+        res.status(400).json({
+            code: 400,
+            error
+         })
+    }
+}
+
+const getSuggestedSongs = async (req, res) => {
+    const { search } = req.params
+    try {
+        const songs = await songsModels.getSuggestedSongs(search)
+        if(songs) {
+            res.status(200).json({
+                code: 200,
+                songs
+            })
+        } else {
+            res.status(200).json({
+                code: 200,
+                songs: []
+            })
+        }
+    } catch (error) {
+        res.status(500).json({
+            code: 400,
+            error
+        })
+    }
+}
 
 /*
     POST http://localhost:3000/api/songs
-    Create new song in DB
+    Create song in DB
+    {
+        "song_title": "Just Dance",
+        "difficulty": "Normal",
+        "duration": "1:59",
+        "stages": [2426, 8733, 18693, 30934, 50000],
+        "image": "https://beatscore.eu/image/cover/50"
+    }
 */
 const createSong = async (req, res) => {
+    const { song_title, difficulty, duration, stages, image, artists, genres } = req.body
     try {
-        const { title, genre, difficulty, duration, stages, image } = req.body
-
-        const query = await songsModels.createSong({ title, genre, difficulty, duration, stages, image })
-        
+        const song = await songsModels.createSong({ song_title, difficulty, duration, stages, image, artists, genres })
         res.status(200).json({
             code: 200,
-            query
-        })
-        
-    } catch (error) {
-        res.status(400).json({
-            code: 400,
-            error
-        })
-    }
-}
-
-/*
-    GET http://localhost:3000/api/songs/:title
-    Get song by title from DB
-*/
-const getSongByTitle = async (req, res) => {
-    try {
-        const { title } = req.params
-
-        const query = await songsModels.getSongByTitle(title)
-
-        const queryStages = query.stages
-        const stagesFixed = []
-
-        // Refactor stages names
-        for(let i = 0; i < queryStages.length; i++) {
-            if(i == 0) {
-                stagesFixed.push({ stageName: "Intro Stage", stageValue: queryStages[i] })
-            } else if(i == queryStages.length - 1) {
-                stagesFixed.push({ stageName: "Final Stage", stageValue: queryStages[i] })
-            } else {
-                stagesFixed.push({ stageName: `Stage ${ i + 1 }`, stageValue: queryStages[i] })
-            }
-        }
-
-        query.stages = stagesFixed
-        res.status(200).json({
-            code: 200,
-            query
-        })
-    } catch (error) {
-        res.status(400).json({
-            code: 400,
-            error
-        })
-    }
-}
-
-/*
-    GET http://localhost:3000/api/songs/suggestions/:searchedTitle
-    Get songs list by matching title from DB
-*/
-const getSuggestedSongs = async (req, res) => {
-    try {
-        const { searchedTitle } = req.params
-
-        const query = await songsModels.getSuggestedSongs(searchedTitle)
-        res.status(200).json({
-            code: 200,
-            query
+            id_song: song.id_song,
+            genres: song.genres,
+            artists: song.artists
         })
     } catch (error) {
         res.status(400).json({
@@ -83,19 +88,33 @@ const getSuggestedSongs = async (req, res) => {
 
 /*
     PUT http://localhost:3000/api/songs
-    Update song by title in DB
+    Update song by song_id in DB
+    {
+        "song_title": "Just NOT Dance",
+        "difficulty": "Normal",
+        "duration": "1:59",
+        "stages": [2426, 8733, 18693, 30934, 50000],
+        "image": "https://beatscore.eu/image/cover/50",
+        "id_song": 1
+    }
 */
 const updateSong = async (req, res) => {
+    const { song_title, difficulty, duration, stages, image, id_song } = req.body
     try {
-        const { title, genre, difficulty, duration, stages, image, searchedTitle } = req.body
-
-        const query = songsModels.updateSong({ title, genre, difficulty, duration, stages, image, searchedTitle })
-        res.status(200).json({
-            code: 200,
-            query: "Update successful"
-        })
-    } catch (error) {
-        res.status(400).json({
+        const song = await songsModels.updateSong({ song_title, difficulty, duration, stages, image, id_song })
+        if(song) {
+            res.status(200).json({
+                code: 200,
+                updated_song: song
+            })
+        } else {
+            res.status(200).json({
+                code: 404,
+                msg: "Song not found"
+            })
+        }
+    } catch (error) {        
+        res.status(500).json({
             code: 400,
             error
         })
@@ -104,19 +123,28 @@ const updateSong = async (req, res) => {
 
 /*
     DELETE http://localhost:3000/api/songs
-    Delete song by title in DB
+    Delete song by song_id in DB
+    {
+        "id_song": 1
+    }
 */
 const deleteSong = async (req, res) => {
+    const { id_song } = req.body
     try {
-        const { title } = req.body
-        
-        const query = await songsModels.deleteSong(title)
-        res.status(200).json({
-            code: 200,
-            query: "Delete successful"
-        })
+        const song = await songsModels.deleteSong(id_song)
+        if(song) {
+            res.status(200).json({
+                code: 200,
+                deleted_song: song
+            })
+        } else {
+            res.status(200).json({
+                code: 404,
+                msg: "Song not found"
+            })
+        }
     } catch (error) {
-        res.status(400).json({
+        res.status(500).json({
             code: 400,
             error
         })
@@ -124,9 +152,9 @@ const deleteSong = async (req, res) => {
 }
 
 module.exports = {
-    createSong,
-    getSongByTitle,
+    getAllSongs,
     getSuggestedSongs,
+    createSong,
     updateSong,
     deleteSong,
 }
