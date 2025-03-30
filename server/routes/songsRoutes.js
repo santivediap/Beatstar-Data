@@ -1,13 +1,13 @@
 const express = require('express');
 
-// Users routes
+// Songs routes
 const songsApiControllers = require("../controllers/songsControllers");
 const songsApiRouter = express.Router();
 
-songsApiRouter.post('/', songsApiControllers.createSong);
-songsApiRouter.get('/:title', songsApiControllers.getSongByTitle);
-songsApiRouter.get('/suggestions/:searchedTitle', songsApiControllers.getSuggestedSongs);
-songsApiRouter.put('/', songsApiControllers.updateSong);
-songsApiRouter.delete('/', songsApiControllers.deleteSong);
+songsApiRouter.get("/", songsApiControllers.getAllSongs);
+songsApiRouter.get("/suggest/:search", songsApiControllers.getSuggestedSongs);
+songsApiRouter.post("/", songsApiControllers.createSong);
+songsApiRouter.put("/", songsApiControllers.updateSong);
+songsApiRouter.delete("/", songsApiControllers.deleteSong);
 
 module.exports = songsApiRouter;
