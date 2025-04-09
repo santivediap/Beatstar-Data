@@ -19,6 +19,7 @@ CREATE TABLE song (
     difficulty VARCHAR(20) NOT NULL,
     stages VARCHAR(20)[] NOT NULL,
     duration VARCHAR(10) NOT NULL,
+    is_deluxe BOOLEAN NOT NULL,
     image VARCHAR(200) NOT NULL,
     PRIMARY KEY(id_song)
 )

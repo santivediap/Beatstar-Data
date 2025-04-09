@@ -3,8 +3,6 @@ const pool = require("../utils/postgresql")
 const artistsModels = require("./artistsModels")
 const genresModels = require("./genresModels")
 
-const puppeteer = require("puppeteer");
-
 const getAllSongs = async (page) => {
     let client = await pool.connect()
     let result;
@@ -43,12 +41,12 @@ const getSuggestedSongs = async (search) => {
 }
 
 const createSong = async (songData) => {
-    const { song_title, difficulty, duration, stages, image, artists, genres } = songData
+    const { song_title, difficulty, duration, is_deluxe, stages, image, artists, genres } = songData
     let client = await pool.connect()
     let result;
 
     try {
-        const songData = await client.query(songsQueries.createSong, [song_title, difficulty, duration, stages, image])
+        const songData = await client.query(songsQueries.createSong, [song_title, difficulty, duration, is_deluxe, stages, image])
         const songId = songData.rows[0].id_song
 
         // Insert artists that features into the song
@@ -85,14 +83,14 @@ const createSong = async (songData) => {
 }
 
 const updateSong = async (songData) => {
-    const { song_title, difficulty, duration, stages, image, id_song } = songData
+    const { song_title, difficulty, duration, is_deluxe, stages, image, id_song } = songData
     let client = await pool.connect()
     let result;
 
     try {
         const searchSong = await client.query(songsQueries.getSongById, [id_song])
         if(searchSong.rows.length) {
-            const data = await client.query(songsQueries.updateSong, [song_title, difficulty, duration, stages, image, id_song])
+            const data = await client.query(songsQueries.updateSong, [song_title, difficulty, duration, is_deluxe, stages, image, id_song])
             result = data.rows[0]
         }
     } catch(error) {

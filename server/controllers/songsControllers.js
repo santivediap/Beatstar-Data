@@ -34,6 +34,10 @@ const getAllSongs = async (req, res) => {
     }
 }
 
+/*
+    GET http://localhost:3000/api/songs/suggest/:search
+    Get all suggested from DB by search
+*/
 const getSuggestedSongs = async (req, res) => {
     const { search } = req.params
     try {
@@ -64,14 +68,15 @@ const getSuggestedSongs = async (req, res) => {
         "song_title": "Just Dance",
         "difficulty": "Normal",
         "duration": "1:59",
+        "is_deluxe": false,
         "stages": [2426, 8733, 18693, 30934, 50000],
         "image": "https://beatscore.eu/image/cover/50"
     }
 */
 const createSong = async (req, res) => {
-    const { song_title, difficulty, duration, stages, image, artists, genres } = req.body
+    const { song_title, difficulty, duration, is_deluxe, stages, image, artists, genres } = req.body
     try {
-        const song = await songsModels.createSong({ song_title, difficulty, duration, stages, image, artists, genres })
+        const song = await songsModels.createSong({ song_title, difficulty, duration, is_deluxe, stages, image, artists, genres })
         res.status(200).json({
             code: 200,
             id_song: song.id_song,
@@ -93,15 +98,16 @@ const createSong = async (req, res) => {
         "song_title": "Just NOT Dance",
         "difficulty": "Normal",
         "duration": "1:59",
+        "is_deluxe": false,
         "stages": [2426, 8733, 18693, 30934, 50000],
         "image": "https://beatscore.eu/image/cover/50",
         "id_song": 1
     }
 */
 const updateSong = async (req, res) => {
-    const { song_title, difficulty, duration, stages, image, id_song } = req.body
+    const { song_title, difficulty, duration, is_deluxe, stages, image, id_song } = req.body
     try {
-        const song = await songsModels.updateSong({ song_title, difficulty, duration, stages, image, id_song })
+        const song = await songsModels.updateSong({ song_title, difficulty, duration, is_deluxe, stages, image, id_song })
         if(song) {
             res.status(200).json({
                 code: 200,
