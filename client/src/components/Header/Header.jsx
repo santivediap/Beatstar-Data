@@ -25,7 +25,7 @@ const Header = () => {
       <div className={ `dropdown-container ${ isHamburguerOpen ? "show" : "" }` }>
         <ul>
           <li>
-            <Link onClick={ alternateHamburguer } to={ "/stages-scores" }>Stages scores</Link>
+            <Link onClick={ alternateHamburguer } to={ "/song-search" }>Song search</Link>
           </li>
 
           <li>
