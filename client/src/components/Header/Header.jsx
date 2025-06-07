@@ -19,6 +19,10 @@ const Header = () => {
       <img src="/assets/logo.svg" alt="logo" />
     </Link>
 
+    <div className="links">
+      <Link onClick={ alternateHamburguer } to={ "/song-search" }>Song search</Link>
+    </div>
+
     <div className="hamburguer-container">
       <Hamburger color="#ffffff" toggled={isHamburguerOpen} toggle={ setHamburguerOpen } />
 
@@ -26,10 +30,6 @@ const Header = () => {
         <ul>
           <li>
             <Link onClick={ alternateHamburguer } to={ "/song-search" }>Song search</Link>
-          </li>
-
-          <li>
-            <Link onClick={ alternateHamburguer } to={ "/news" }>News</Link>
           </li>
         </ul>
       </div>
