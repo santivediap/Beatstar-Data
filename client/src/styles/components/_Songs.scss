@@ -1,4 +1,5 @@
 @use "../utils/variables";
+@use "../utils/mixins";
 
 .song-view-container {
     min-width: 100%;
@@ -42,11 +43,6 @@
                 align-items: flex-start;
                 justify-content: center;
                 margin-right: 5px;
-
-                & > span {
-                    box-shadow: variables.$normal-shadow;
-                    padding: 5px;
-                }
             }
 
             & > img {
@@ -102,6 +98,36 @@
             color: white;
         }
     }
+
+    @include mixins.for-desktop {
+        & > .search-box {
+
+            & > img {
+                bottom: 12px;
+                width: 25px;
+            }
+
+            & > input {
+                font-size: 1.5rem;
+            }
+        }
+
+        & > .suggested-songs {
+            & > div {
+                & > img {
+                    width: 90px;
+                }
+
+                & > p {
+                    font-size: 1.3rem;
+                }
+            }
+        }
+
+        & > .suggested-songs.show {
+            height: 60vh;
+        }
+    }
 }
 
 .song-details {
@@ -148,6 +174,7 @@
         margin-top: 20px;
         margin-bottom: 20px;
         display: flex;
+        justify-content: center;
         & > .song-tags {
             width: 47%;
             display: flex;
@@ -178,6 +205,52 @@
 
             & > span {
                 font-size: 1.1rem;
+            }
+        }
+    }
+
+    @include mixins.for-desktop {
+        & > .song-title {
+            & > span {
+                font-size: 1.6rem;
+            }
+        }
+
+        & > .basic-info {
+            
+
+            & > .song-tags {
+                width: 20%;
+                & > span {
+                    font-size: 1.3rem;
+                    min-width: 150px;
+                }
+            }
+
+            & > .song-image {
+                width: 20%;
+                & > img {
+                    width: 200px;
+                }
+
+                & > span {
+                    font-size: 1.3rem;
+                }
+            }
+        }
+
+        & > .song-stages {
+            & > tbody {
+                & > tr {
+                    & > th {
+                        font-size: 1.5rem;
+                        min-width: 200px;
+                    }
+
+                    & > td {
+                        font-size: 1.3rem;
+                    }
+                }
             }
         }
     }

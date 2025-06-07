@@ -1,4 +1,5 @@
 @use "../utils/variables";
+@use "../utils/mixins";
 
 header {
     display: flex;
@@ -6,40 +7,82 @@ header {
     justify-content: space-between;
     width: 94%;
     padding: 10px;
-}
 
-.logo-container {
-    background-color: #000000;
-    border-radius: 10px;
-    min-height: 71px;
-    min-width: 71px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: variables.$normal-shadow;
+    & > .logo-container {
+        background-color: #000000;
+        border-radius: 10px;
+        min-height: 71px;
+        min-width: 71px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: variables.$normal-shadow;
+    
+        & > img {
+            transition: transform 0.08s ease-in-out;
+        }
+    }
+    
+    & > .logo-container:hover {
+        & > img {
+            transform: scale(0.9);
+        }
+    }
 
-    & > img {
-        transition: transform 0.08s ease-in-out;
+    & > .links {
+        display: none;
+
+        & > a {
+            color: white;
+            padding-left: 18px;
+            padding-right: 18px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            background-color: black;
+            border-radius: 15px;
+            font-size: 1.4rem;
+            text-decoration: none;
+            box-shadow: variables.$normal-shadow;
+        }
+
+        & > a:hover {
+            text-decoration: underline;
+        }
+    }
+    
+    & > .hamburguer-container {
+        background-color: black;
+        border-radius: 15px;
+        width: 60px;
+        height: 55px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        box-shadow: variables.$normal-shadow;
+    }
+
+    @include mixins.for-desktop {
+        & > .hamburguer-container {
+            display: none;
+        }
+
+        & > .links {
+            display: block;
+        }
+
+        & > .logo-container {
+            border-radius: 18px;
+            min-height: 91px;
+            min-width: 91px;
+
+            & > img {
+                width: 80px;
+            }
+        }
     }
 }
 
-.logo-container:hover {
-    & > img {
-        transform: scale(0.9);
-    }
-}
-
-.hamburguer-container {
-    background-color: black;
-    border-radius: 15px;
-    width: 60px;
-    height: 55px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    box-shadow: variables.$normal-shadow;
-}
 
 .dropdown-container {
     position: absolute;
