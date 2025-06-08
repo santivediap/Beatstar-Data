@@ -59,7 +59,7 @@
         }
     
         & > .welcome-data {
-            background-image: url("./assets/background-ellipse-mobile.svg");
+            background-image: url("/assets/background-ellipse-mobile.svg");
             background-position-x: -25vw;
             background-position-y: -5vw;
             padding-top: 120px;
@@ -108,7 +108,7 @@
     
         & > .welcome-data {
             width: 8100;
-            background-image: url("./assets/background-ellipse-desktop.svg");
+            background-image: url("/assets/background-ellipse-desktop.svg");
             background-position-x: -5vw;
             background-position-y: -10vw;
             padding-top: 120px;
