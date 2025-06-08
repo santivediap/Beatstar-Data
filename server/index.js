@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 require('dotenv').config()
 
 const app = express();
@@ -13,12 +14,13 @@ app.use("/api/genres", genresApiRouter)
 app.use("/api/artists", artistsApiRouter)
 app.use("/api/songs", songsApiRouter)
 
-app.get("/", async (req, res) => {
-    res.status(200).json({
-        msg: "Test"
-    })
-})
+const PORT = process.env.PORT || 8080;
 
-const PORT = process.env.PORT || 5000;
+if (process.env.NODE_ENV === 'production') {
+    //*Set static folder
+    app.use(express.static('../client/dist'));
+    
+    app.get('*', (req,res) => res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html')));
+  }
 
 app.listen(PORT, () => console.log(`Server started port ${PORT}`));
