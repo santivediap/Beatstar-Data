@@ -92,7 +92,7 @@
                 }
         
                 & > li::before {
-                    content: url("./assets/list-bullet.svg");
+                    content: url("/assets/list-bullet.svg");
                     position: absolute;
                     left: -50px;
                     width: 5px;
@@ -141,7 +141,7 @@
                 }
         
                 & > li::before {
-                    content: url("./assets/list-bullet.svg");
+                    content: url("/assets/list-bullet.svg");
                     position: absolute;
                     left: -50px;
                     width: 5px;
